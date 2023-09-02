@@ -18,11 +18,11 @@ lazy val root = Project("avro4s", file("."))
 
 val `avro4s-core` = project.in(file("avro4s-core"))
   .settings(
+    scalacOptions += "-Yretain-trees",
     publishArtifact := true,
     libraryDependencies ++= Seq(
-      "com.softwaremill.magnolia1_3" %% "magnolia" % MagnoliaVersion
-      //      "com.chuusai" %% "shapeless" % ShapelessVersion,
-      //      "org.json4s" %% "json4s-native" % Json4sVersion
+      "com.softwaremill.magnolia1_3" %% "magnolia"      % MagnoliaVersion,
+      "org.json4s"                   %% "json4s-native" % Json4sVersion
     )
   )
 

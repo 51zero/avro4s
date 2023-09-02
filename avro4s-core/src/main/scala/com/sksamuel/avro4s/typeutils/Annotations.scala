@@ -1,6 +1,6 @@
 package com.sksamuel.avro4s.typeutils
 
-import com.sksamuel.avro4s.{AvroAliasable, AvroDoc, AvroDocumentable, AvroErasedName, AvroError, AvroFixed, AvroName, AvroNameable, AvroNamespace, AvroProp, AvroProperty, AvroSortPriority, AvroTransient, AvroUnionPosition}
+import com.sksamuel.avro4s.{AvroAliasable, AvroDoc, AvroDocumentable, AvroEnumDefault, AvroErasedName, AvroError, AvroFixed, AvroName, AvroNameable, AvroNamespace, AvroNoDefault, AvroProp, AvroProperty, AvroSortPriority, AvroTransient, AvroUnionPosition}
 import magnolia1.{CaseClass, TypeInfo}
 
 class Annotations(annos: Seq[Any]) {
@@ -28,6 +28,10 @@ class Annotations(annos: Seq[Any]) {
   def transient: Boolean = annos.collectFirst {
     case t: AvroTransient => t
   }.isDefined
+  
+  def nodefault: Boolean = annos.collectFirst {
+    case t: AvroNoDefault => t
+  }.isDefined
 
   def erased: Boolean = annos.collectFirst {
     case t: AvroErasedName => t
@@ -53,6 +57,11 @@ class Annotations(annos: Seq[Any]) {
   }
 
   def sortPriority: Option[Float] = avroSortPriority.orElse(avroUnionPosition)
+
+  def enumDefault: Option[Any] = annos.collectFirst {
+    case t: AvroEnumDefault => t.default
+  }
+
 }
 
 object Annotations {

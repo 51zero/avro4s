@@ -19,11 +19,11 @@ class AvroPropSchemaTest extends AnyWordSpec with Matchers {
       val schema = AvroSchema[Annotated]
       schema.toString(true) shouldBe expected.toString(true)
     }
-//    "support props annotations on scala enums" in {
-//      case class Annotated(@AvroProp("cold", "play") colours: Colours.Value)
-//      val expected = new org.apache.avro.Schema.Parser().parse(getClass.getResourceAsStream("/props_annotation_scala_enum.json"))
-//      val schema = AvroSchema[Annotated]
-//      schema.toString(true) shouldBe expected.toString(true)
-//    }
+    "support props annotations on scala enums" in {
+      case class Annotated(@AvroProp("cold", "play") colours: Colours)
+      val expected = new org.apache.avro.Schema.Parser().parse(getClass.getResourceAsStream("/props_annotation_scala_enum.json"))
+      val schema = AvroSchema[Annotated]
+      schema.toString(true) shouldBe expected.toString(true)
+    }
   }
 }

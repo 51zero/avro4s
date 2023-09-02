@@ -4,6 +4,7 @@ import com.sksamuel.avro4s.{AvroName, SchemaFor}
 import com.sksamuel.avro4s.typeutils.{Annotations, Names, SubtypeOrdering}
 import magnolia1.SealedTrait
 import org.apache.avro.{Schema, SchemaBuilder}
+import com.sksamuel.avro4s.CustomDefaults
 
 object SealedTraits {
   def schema[T](ctx: SealedTrait[SchemaFor, T]): Schema = {
@@ -28,13 +29,15 @@ object SealedTraits {
       ).name
     }
 
-    SchemaBuilder.enumeration(names.name).namespace(names.namespace).symbols(symbols*)
+    val builder = SchemaBuilder.enumeration(names.name).namespace(names.namespace)
 
-    // todo once magnolia supports scala 3 defaults
-    //    val builderWithDefault = sealedTraitEnumDefaultValue(ctx) match {
-    //      case Some(default) => builder.defaultSymbol(default)
-    //      case None          => builder
-    //    }
-    //
+    val builderWithDefault = CustomDefaults.sealedTraitEnumDefaultValue(ctx) match {
+      case Some(default) => 
+        builder.defaultSymbol(default)
+      case None          => builder
+    }
+
+    builderWithDefault.symbols(symbols*)
+    
   }
 }

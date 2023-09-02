@@ -24,12 +24,11 @@ class UUIDSchemaTest extends AnyWordSpec with Matchers {
       val expected = new org.apache.avro.Schema.Parser().parse(getClass.getResourceAsStream("/uuid_option.json"))
       schema shouldBe expected
     }
-    // todo magnolia for scala 3 doesn't support defaults yet
-//    "support UUID with default value" in {
-//      val schema = AvroSchema[UUIDDefault]
-//      val expected = new org.apache.avro.Schema.Parser().parse(getClass.getResourceAsStream("/uuid_default.json"))
-//      schema shouldBe expected
-//    }
+    "support UUID with default value" in {
+      val schema = AvroSchema[UUIDDefault]
+      val expected = new org.apache.avro.Schema.Parser().parse(getClass.getResourceAsStream("/uuid_default.json"))
+      schema shouldBe expected
+    }
     "support Seq[UUID] as an array of logical types" in {
       val schema = AvroSchema[UUIDSeq]
       val expected = new org.apache.avro.Schema.Parser().parse(getClass.getResourceAsStream("/uuid_seq.json"))

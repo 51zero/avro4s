@@ -10,9 +10,9 @@
         "name": "Colours",
         "namespace": "com.sksamuel.avro4s.schema",
         "symbols": [
-          "Red",
           "Amber",
-          "Green"
+          "Green",
+          "Red"
         ]
       },
       "cold": "play"
