@@ -29,7 +29,7 @@ trait CollectionDecoders:
   given[T](using decoder: Decoder[T]): Decoder[Seq[T]] = iterableDecoder(decoder, _.toSeq)
   given[T](using decoder: Decoder[T]): Decoder[Set[T]] = iterableDecoder(decoder, _.toSet)
   given[T](using decoder: Decoder[T]): Decoder[Vector[T]] = iterableDecoder(decoder, _.toVector)
-  given[T](using decoder: Decoder[T]): Decoder[Map[String, T]] = new MapDecoder[T](decoder)
+  given mapDecoder[T](using decoder: Decoder[T]): Decoder[Map[String, T]] = new MapDecoder[T](decoder)
 
   def iterableDecoder[T, C[X] <: Iterable[X]](decoder: Decoder[T],
                                               build: Iterable[T] => C[T]): Decoder[C[T]] =

@@ -19,6 +19,5 @@ trait CollectionSchemas:
 
   given[T](using schemaFor: SchemaFor[T]): SchemaFor[List[T]] = buildIterableSchemaFor[List, T]
 
-  given[V](using schemaFor: SchemaFor[V]): SchemaFor[Map[String, V]] =
+  given mapSchemaFor[V](using schemaFor: SchemaFor[V]): SchemaFor[Map[String, V]] =
     schemaFor.map(SchemaBuilder.map().values(_))
-
